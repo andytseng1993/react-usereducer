@@ -1,16 +1,16 @@
 
-export default function TodoList({todo}){
-    function handlerToggle(){
-
+export default function TodoList(props){
+    function handleToggle(){
+        props.toggle()
     }
-    function handlerDelete(){
-        
+    function handleDelete(){
+        props.delete()
     }
     return(
-        <li style={{listStyle: 'none', color: todo.completed?'#AAA':'#000'}}>
-            {todo.name}
-            <button onClick={handlerToggle}>Toggle</button>
-            <button onClick={handlerDelete}>Delete</button>
+        <li style={{listStyle: 'none', color: props.todo.completed?'#AAA':'#000'}}>
+            {props.todo.name}
+            <button onClick={handleToggle}>Toggle</button>
+            <button onClick={handleDelete}>Delete</button>
         </li>
     )
 }
