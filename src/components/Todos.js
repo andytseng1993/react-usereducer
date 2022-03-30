@@ -1,9 +1,10 @@
 import { useState,useReducer } from "react"
 import TodoList from "./TodoList"
 
-const ACTIONS ={
+export const ACTIONS ={
     ADD_TODO:'add_todo',
-    TOGGLE_TODO:'toggle_todo'
+    TOGGLE_TODO:'toggle_todo',
+    DELETE_TODO:'delete_todo'
 }
 const reducer =(todos,action)=>{
     switch(action.type){
@@ -15,9 +16,11 @@ const reducer =(todos,action)=>{
                     return {...todo, completed:!todo.completed }
                 }
                 return todo
-            })
+        })
+        case ACTIONS.DELETE_TODO:
+            return todos.filter(todo => todo.id !== action.payload.id)
         default:
-            return 
+            return todos
     }
 }
 function newTodo(name){
@@ -39,13 +42,16 @@ export default function Todos(){
     }
     
     return (
-    <form onSubmit={handleSubmit}>
-        <input type='text' value={name} onChange={event => setName(event.target.value)}></input>
-        <ul style={{paddingLeft:'10px'}}>
-           {todos.map((todo) => {
-               return <TodoList  todo={todo} key={todo.id} dispatch={dispatch}></TodoList>
-           })}
-        </ul>
-        
-    </form>)
-}
+        <>
+            <form onSubmit={handleSubmit}>
+                <input type='text' value={name} onChange={event => setName(event.target.value)} required='required'></input>
+            
+            </form>
+            <ul style={{paddingLeft:'10px'}}>
+            {todos.map((todo) => {
+                return <TodoList  todo={todo} key={todo.id} dispatch={dispatch}></TodoList>
+            })}
+            </ul>  
+        </>
+     
+    )}
