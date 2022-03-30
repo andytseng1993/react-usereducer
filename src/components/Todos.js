@@ -1,5 +1,5 @@
 import { useState,useReducer } from "react"
-
+import TodoList from "./TodoList"
 
 const ACTIONS ={
     ADD_TODO:'add_todo'
@@ -33,10 +33,10 @@ export default function Todos(){
     return (
     <form onSubmit={handleSubmit}>
         <input type='text' value={name} onChange={event => setName(event.target.value)}></input>
-        <ul>
-           {todos.map(({name,id}) => (
-           <li key={id}>{name}</li>)  
-           )}
+        <ul style={{paddingLeft:'10px'}}>
+           {todos.map((todo) => (
+           <TodoList  todo={todo} key={todo.id}></TodoList>
+           ))}
         </ul>
         
     </form>)
